@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.concurrent.TimeUnit;
 
@@ -35,6 +36,11 @@ public class MainActivity extends AppCompatActivity {
         final TextView textViewShowCount = findViewById(R.id.textViewShowCount);
         new CountDownTimer(1000 * Integer.parseInt(sessiontimeinSecFromSh), 1000) {
             public void onTick(long millisUntilFinished) {
+
+                Log.d("MYLOG", "MainActivity: " + "onTick: " + "millisUntilFinished: " + millisUntilFinished);
+                if ((millisUntilFinished/1000) ==  1200) {
+                    Toast.makeText(MainActivity.this, "Only 10 minutes remaining for this session ! The session will automatically close in 5 minutes", Toast.LENGTH_SHORT).show();
+                }
 
                 // textViewShowCount.setText(String.valueOf(millisUntilFinished / 1000));
                 textViewShowCount.setText(String.format(FORMAT, TimeUnit.MILLISECONDS.toHours(millisUntilFinished), TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisUntilFinished)), TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
